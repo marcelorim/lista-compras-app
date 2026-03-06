@@ -5,19 +5,36 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Lista de Compras</title>
-
 <style>
-html,body{
-  margin:0;
-  padding:0;
-  height:100%;
+
+body{
+margin:0;
+font-family:Arial;
+background:#f2f2f2;
+}
+
+.menu{
+padding:30px;
+display:flex;
+flex-direction:column;
+gap:20px;
+}
+
+.botao{
+background:white;
+padding:30px;
+border-radius:20px;
+font-size:22px;
+text-align:center;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+cursor:pointer;
 }
 
 iframe{
-  border:none;
-  width:100%;
-  height:100vh;
+width:100%;
+height:100vh;
+border:none;
+display:none;
 }
 
 </style>
@@ -26,7 +43,38 @@ iframe{
 
 <body>
 
-<iframe src="https://script.google.com/macros/s/AKfycbzPgUEc3hEhN842CZ0KcPDQJCHdGiWQlenNDBi-TLcHBBvjk_lRmtoEtTpI-C64LSV4/exec"></iframe>
+<div id="menu" class="menu">
+
+<div class="botao" onclick="abrir('montar')">
+➕ Montar Lista
+</div>
+
+<div class="botao" onclick="abrir('comprar')">
+🛒 Fazer Compras
+</div>
+
+</div>
+
+<iframe id="appFrame"></iframe>
+
+<script>
+
+const BASE =
+"https://script.google.com/macros/s/AKfycbzPgUEc3hEhN842CZ0KcPDQJCHdGiWQlenNDBi-TLcHBBvjk_lRmtoEtTpI-C64LSV4/exec";
+
+function abrir(pagina){
+
+document.getElementById("menu").style.display="none";
+
+const frame = document.getElementById("appFrame");
+
+frame.src = BASE + "?page=" + pagina;
+
+frame.style.display="block";
+
+}
+
+</script>
 
 </body>
 </html>
