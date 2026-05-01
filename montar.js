@@ -4,13 +4,13 @@ let itensBase = [];
 /* ===============================
    LOAD INICIAL
 ================================= */
-window.onload = async function() {
-    showLoading();  
-    await new Promise(r => requestAnimationFrame(r));  
+window.onload = async function(){
+    showLoading();   
+    await new Promise(r=>setTimeout(r,150));   
     await carregarListas();
-    await carregarItensBase();  
+    await carregarItensBase();   
     hideLoading();
- }
+}
 
 /* ===============================
    CARREGAR LISTAS

@@ -141,38 +141,35 @@ body{
 /* ================================================= */
 /* SPINNER OVERLAY LOADING                           */
 /* ================================================= */
-.loading{
+.loading-overlay{
     position:fixed;
     top:0;
     left:0;
     width:100%;
     height:100%;
-    background:rgba(240,240,240,0.55);
-    backdrop-filter:blur(2px);
-    display:flex;
+    background:rgba(255,255,255,0.75);
+    display:none;
     justify-content:center;
     align-items:center;
-    z-index:9999;
-    }
-    
-    .oculto{
-    display:none;
-    }
-    
-    /* CÍRCULO GIRANDO */
-    
-    .spinner{
+    z-index:99999;
+    backdrop-filter:blur(2px);
+}
+
+.loading-overlay.show{
+    display:flex;
+}
+
+.spinner{
     width:62px;
     height:62px;
     border:6px solid #d9d9d9;
     border-top:6px solid #012b20;
     border-radius:50%;
-    animation:giro .9s linear infinite;
-    box-shadow:0 0 12px rgba(0,0,0,.10);
-    }
-    
-    @keyframes giro{
+    animation:girar .8s linear infinite;
+ }
+
+@keyframes girar{
     0%{transform:rotate(0deg);}
     100%{transform:rotate(360deg);}
-    }
+}
 

@@ -33,9 +33,11 @@ function confirmar(msg){
    SPINNER GLOBAL
 ================================= */
 function showLoading(){
-    document.getElementById("loading").classList.remove("oculto");
-   }
+    document.getElementById("loading")
+    ?.classList.add("show");
+}
    
-   function hideLoading(){
-    document.getElementById("loading").classList.add("oculto");
-   }
+function hideLoading(){
+    document.getElementById("loading")
+    ?.classList.remove("show");
+}
