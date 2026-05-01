@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="style.css">
-<script src="app.js"></script>
 <title>Montar Lista</title>
 </head>
 
@@ -19,181 +18,48 @@
 
 <div class="card">
 
-    <div id="menuInicial">
-    
-    <button class="acao" onclick="modoNovaLista()">
-    ➕ Nova Lista
-    </button>
-    
-    <select id="comboListas" class="campo" onchange="selecionarLista()">
-    <option value="">📂 Carregar lista existente</option>
-    </select>
-    
-    </div>
-    
-    <div id="areaNova" style="display:none">
-    
-    <input id="nomeLista" class="campo" placeholder="Nome da nova lista">
-    
-    <button class="acao" onclick="criarLista()">
-    Criar Lista
-    </button>
-    
-    <button class="outline acao" onclick="cancelarNovaLista()">
-    Cancelar
-    </button>
-    
-    </div>
-    
-    <div id="listaAtiva" style="display:none"></div>
-    
+<div id="menuInicial">
+
+<button class="acao" onclick="modoNovaLista()">
+➕ Nova Lista
+</button>
+
+<select id="comboListas" class="campo" onchange="selecionarLista()">
+<option value="">📂 Carregar lista existente</option>
+</select>
+
+</div>
+
+<div id="areaNova" style="display:none">
+
+<input id="nomeLista" class="campo" placeholder="Nome da nova lista">
+
+<button class="acao" onclick="criarLista()">
+Criar Lista
+</button>
+
+<button class="outline acao" onclick="cancelarNovaLista()">
+Cancelar
+</button>
+
+</div>
+
+<div id="listaAtiva" style="display:none"></div>
+
 </div>
 
 <div class="card" id="areaItens" style="display:none">
-
 <div id="itens"></div>
 
 <button class="danger" onclick="limparLista()">
 🧹 Limpar Lista
 </button>
-
 </div>
 
 </div>
 
-<script>
-
-let idLista = null;
-let itensBase = [];
-
-window.onload = async function(){
-  await carregarListas();
-  await carregarItensBase();
-}
-
-async function carregarListas(){
-
-  const r = await api("buscarListas");
-
-  const combo = document.getElementById("comboListas");
-
-  r.data.forEach(x=>{
-    combo.innerHTML +=
-    `<option value="${x.id}">${x.nome}</option>`;
-  });
-}
-
-async function carregarItensBase(){
-
-  const r = await api("buscarItens");
-  itensBase = r.data;
-}
-
-async function criarLista(){
-
-  const nome = document.getElementById("nomeLista").value.trim();
-
-  if(!nome) return alert("Digite o nome");
-
-  const r = await api("criarLista",{nomeLista:nome});
-
-  idLista = r.data.idLista;
-
-  await carregarListas();
-
-  renderItens([]);
-}
-
-async function selecionarLista(){
-
-  idLista = document.getElementById("comboListas").value;
-
-  const r = await api("buscarItensDaLista",{idLista:idLista});
-
-  renderItens(r.data);
-}
-
-function renderItens(listaAtual){
-
-  document.getElementById("areaItens").style.display="block";
-
-  const div = document.getElementById("itens");
-
-  div.innerHTML="";
-
-  itensBase.forEach(item=>{
-
-    let atual = listaAtual.find(x=>x.idItem==item.id);
-
-    let qtd = atual ? atual.quantidade : 0;
-
-    let ativo = atual ? true : false;
-
-    div.innerHTML += `
-    <div class="linha-item">
-
-      <span>${item.nome}</span>
-
-      <div class="acoes-item">
-
-        <button onclick="menos(${item.id})">-</button>
-
-        <span id="qtd_${item.id}">${qtd}</span>
-
-        <button onclick="mais(${item.id})">+</button>
-
-        <button onclick="toggle(${item.id})">
-          ${ativo ? '🗑️' : '➕'}
-        </button>
-
-      </div>
-
-    </div>
-    `;
-  });
-}
-
-function mais(id){
- let el=document.getElementById("qtd_"+id);
- el.innerText=parseInt(el.innerText)+1;
-}
-
-function menos(id){
- let el=document.getElementById("qtd_"+id);
- let v=parseInt(el.innerText)-1;
- if(v<0)v=0;
- el.innerText=v;
-}
-
-async function toggle(id){
-
- if(!idLista) return alert("Selecione uma lista");
-
- let qtd = parseInt(
- document.getElementById("qtd_"+id).innerText
- );
-
- if(qtd<=0) return;
-
- await api("incluirItemNaLista",{
-   idLista:idLista,
-   idItem:id,
-   quantidade:qtd
- });
-
- selecionarLista();
-}
-
-async function limparLista(){
-
- if(!idLista) return;
-
- await api("limparLista",{idLista:idLista});
-
- selecionarLista();
-}
-
-</script>
+<script src="app.js"></script>
+<script src="montar.js"></script>
 
 </body>
 </html>
