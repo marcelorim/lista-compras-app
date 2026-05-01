@@ -19,36 +19,34 @@
 
 <div class="card">
 
-<div id="menuInicial">
-
-<button class="acao" onclick="modoNovaLista()">
-➕ Nova Lista
-</button>
-
-<button class="outline acao" onclick="modoCarregar()">
-📂 Carregar Lista
-</button>
-
-</div>
-
-<div id="areaNova" style="display:none">
-
-<input id="nomeLista" class="campo" placeholder="Nome da lista">
-
-<button class="acao" onclick="criarLista()">
-Criar Lista
-</button>
-
-</div>
-
-<div id="areaCarregar" style="display:none">
-
-<select id="comboListas" class="campo" onchange="selecionarLista()">
-<option value="">Selecione a lista</option>
-</select>
-
-</div>
-
+    <div id="menuInicial">
+    
+    <button class="acao" onclick="modoNovaLista()">
+    ➕ Nova Lista
+    </button>
+    
+    <select id="comboListas" class="campo" onchange="selecionarLista()">
+    <option value="">📂 Carregar lista existente</option>
+    </select>
+    
+    </div>
+    
+    <div id="areaNova" style="display:none">
+    
+    <input id="nomeLista" class="campo" placeholder="Nome da nova lista">
+    
+    <button class="acao" onclick="criarLista()">
+    Criar Lista
+    </button>
+    
+    <button class="outline acao" onclick="cancelarNovaLista()">
+    Cancelar
+    </button>
+    
+    </div>
+    
+    <div id="listaAtiva" style="display:none"></div>
+    
 </div>
 
 <div class="card" id="areaItens" style="display:none">

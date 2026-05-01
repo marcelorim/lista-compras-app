@@ -137,3 +137,14 @@ body{
     width:24px;
     height:24px;
     }
+
+    .lista-box{
+        background:#d1ecf1;
+        color:#0c5460;
+        padding:16px;
+        border-radius:14px;
+        font-size:22px;
+        font-weight:bold;
+        text-align:center;
+        margin-top:10px;
+        }
