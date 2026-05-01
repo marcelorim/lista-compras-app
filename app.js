@@ -28,3 +28,14 @@ function aviso(msg){
 function confirmar(msg){
   return confirm(msg);
 }
+
+/* ===============================
+   SPINNER GLOBAL
+================================= */
+function showLoading(){
+    document.getElementById("loading").classList.remove("oculto");
+   }
+   
+   function hideLoading(){
+    document.getElementById("loading").classList.add("oculto");
+   }
