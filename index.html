@@ -3,125 +3,28 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="style.css">
 
 <title>Lista de Compras</title>
 
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
-
-html,body{
-width:100%;
-height:100%;
-font-family:Arial, Helvetica, sans-serif;
-background:#012b20;
-overflow:hidden;
-}
-
-/* MENU */
-
-.menu{
-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-gap:20px;
-padding:20px;
-}
-
-/* BOTÕES */
-
-.botao{
-width:100%;
-max-width:420px;
-background:white;
-padding:26px;
-border-radius:18px;
-font-size:24px;
-font-weight:bold;
-text-align:center;
-box-shadow:0 8px 20px rgba(0,0,0,0.20);
-cursor:pointer;
-transition:0.2s;
-}
-
-.botao:active{
-transform:scale(0.97);
-}
-
-/* IFRAME */
-
-iframe{
-width:100%;
-height:100dvh;
-border:none;
-display:none;
-background:#f5f5f5;
-}
-
-/* topo opcional */
-.logo{
-color:white;
-font-size:28px;
-font-weight:bold;
-margin-bottom:30px;
-}
-
-</style>
-
 </head>
-
 <body>
 
-<div id="menu" class="menu">
+<div class="home">
 
-<div class="logo">
-🛒 Lista de Compras
-</div>
+<h1>🛒 Lista de Compras</h1>
 
-<div class="botao" onclick="abrir('montar')">
+<button onclick="location.href='montar.html'">
 ➕ Montar Lista
-</div>
+</button>
 
-<div class="botao" onclick="abrir('comprar')">
+<button onclick="location.href='comprar.html'">
 🛍️ Fazer Compras
-</div>
+</button>
 
 </div>
-
-<iframe id="appFrame"></iframe>
-
-<script>
-
-const BASE =
-"https://script.google.com/macros/s/AKfycbzPgUEc3hEhN842CZ0KcPDQJCHdGiWQlenNDBi-TLcHBBvjk_lRmtoEtTpI-C64LSV4/exec";
-
-function abrir(pagina){
-
-document.getElementById("menu").style.display="none";
-
-const frame = document.getElementById("appFrame");
-
-frame.src = BASE + "?page=" + pagina;
-
-frame.style.display = "block";
-
-}
-
-/* função futura para voltar */
-function voltarMenu(){
-document.getElementById("menu").style.display="flex";
-document.getElementById("appFrame").style.display="none";
-document.getElementById("appFrame").src="";
-}
-
-</script>
 
 </body>
 </html>

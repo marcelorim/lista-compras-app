@@ -1,0 +1,139 @@
+body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#012b20;
+    color:#fff;
+    }
+    
+    .page{
+    padding:18px;
+    min-height:100vh;
+    box-sizing:border-box;
+    }
+    
+    .topo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:20px;
+    }
+    
+    .topo h2{
+    margin:0;
+    font-size:28px;
+    }
+    
+    .voltar{
+    width:48px;
+    height:48px;
+    border:none;
+    border-radius:14px;
+    font-size:24px;
+    background:#ffffff;
+    color:#012b20;
+    font-weight:bold;
+    }
+    
+    .home{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:25px;
+    gap:20px;
+    box-sizing:border-box;
+    }
+    
+    h1{
+    text-align:center;
+    font-size:34px;
+    margin:0 0 30px 0;
+    }
+    
+    button{
+    border:none;
+    border-radius:18px;
+    padding:18px;
+    font-size:22px;
+    font-weight:bold;
+    }
+    
+    .home button{
+    background:#fff;
+    color:#012b20;
+    }
+    
+    .card{
+    background:#fff;
+    color:#111;
+    border-radius:22px;
+    padding:18px;
+    margin-bottom:18px;
+    }
+    
+    .campo{
+    width:100%;
+    padding:16px;
+    font-size:18px;
+    border-radius:14px;
+    border:1px solid #ccc;
+    box-sizing:border-box;
+    margin-bottom:15px;
+    }
+    
+    .acao{
+    width:100%;
+    background:#0d6efd;
+    color:#fff;
+    margin-bottom:12px;
+    }
+    
+    .outline{
+    background:#e9ecef;
+    color:#111;
+    }
+    
+    .danger{
+    background:#dc3545;
+    color:#fff;
+    width:100%;
+    }
+    
+    .linha-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:12px 0;
+    border-bottom:1px solid #eee;
+    font-size:20px;
+    }
+    
+    .acoes-item{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    }
+    
+    .acoes-item button{
+    width:42px;
+    height:42px;
+    padding:0;
+    background:#012b20;
+    color:#fff;
+    border-radius:12px;
+    font-size:22px;
+    }
+    
+    .check{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:14px 0;
+    font-size:22px;
+    border-bottom:1px solid #eee;
+    }
+    
+    .check input{
+    width:24px;
+    height:24px;
+    }
