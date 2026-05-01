@@ -13,3 +13,13 @@ async function api(action, params = {}) {
 
   return json;
 }
+
+function modoNovaLista(){
+    document.getElementById("menuInicial").style.display="none";
+    document.getElementById("areaNova").style.display="block";
+}
+   
+function modoCarregar(){
+    document.getElementById("menuInicial").style.display="none";
+    document.getElementById("areaCarregar").style.display="block";
+}
