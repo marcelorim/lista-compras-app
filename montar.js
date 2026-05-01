@@ -122,3 +122,43 @@ function finalizarLista(nome){
 
   document.getElementById("areaItens").style.display="block";
 }
+
+function renderItens(listaAtual){
+    const area = document.getElementById("areaItens");  
+    area.style.display = "block";  
+    const div = document.getElementById("itens");  
+    div.innerHTML = "";
+  
+    itensBase.forEach(item => {
+  
+      const atual = listaAtual.find(x => x.idItem == item.id);  
+      const qtd = atual ? atual.quantidade : 0;  
+      const ativo = atual ? true : false;
+  
+      div.innerHTML += `
+        <div class="linha-item">  
+          <span>${item.nome}</span>  
+          <div class="acoes-item">  
+            <button onclick="menos(${item.id})">-</button>  
+            <span id="qtd_${item.id}">${qtd}</span>  
+            <button onclick="mais(${item.id})">+</button>  
+            <button onclick="toggle(${item.id})">
+              ${ativo ? '🗑️' : '➕'}
+            </button>  
+          </div>  
+        </div>
+      `;
+    });
+}
+
+function mais(id){
+    let el = document.getElementById("qtd_" + id);
+    el.innerText = parseInt(el.innerText) + 1;
+}
+  
+function menos(id){
+    let el = document.getElementById("qtd_" + id);
+    let v = parseInt(el.innerText) - 1;
+    if(v < 0) v = 0;
+    el.innerText = v;
+}
