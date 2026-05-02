@@ -97,10 +97,30 @@ async function selecionarLista() {
     });
 
     finalizarLista(nome);
-
     renderItens(r.data);
-
   });
+}
+
+/* LIMPAR LISTA */
+async function limparLista(){
+
+  if(!idLista){
+    aviso("Selecione uma lista.");
+    return;
+  }
+
+  const ok = confirm("Deseja limpar todos os itens da lista?");
+
+  if(!ok) return;
+
+  showLoading();
+
+  await api("limparLista", {
+    idLista:idLista
+  });
+
+  renderItens([]);
+  hideLoading();
 }
 
 /* FINALIZAR */
@@ -161,7 +181,7 @@ async function mais(id){
     quantidade:valor
   });
 
-  console.log("mais:", r);
+  //console.log("mais:", r);
 }
 
 async function menos(id){
@@ -179,7 +199,7 @@ async function menos(id){
     quantidade:valor
   });
 
-  console.log("menos:", r);
+  //console.log("menos:", r);
 }
 
 /* ALTERNAR LISTA */

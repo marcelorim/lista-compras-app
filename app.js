@@ -41,3 +41,10 @@ function hideLoading(){
     document.getElementById("loading")
     ?.classList.remove("show");
 }
+
+/* ===============================
+   VOLTAR PARA INDEX
+================================= */
+function voltarHome(){
+  window.location.href = "index.html";
+}
