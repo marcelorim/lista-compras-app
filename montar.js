@@ -147,16 +147,35 @@ function renderItens(listaAtual){
 }
 
 /* QTD */
-function mais(id) {
+async function mais(id){
+
   let el = document.getElementById("qtd_" + id);
-  el.innerText = parseInt(el.innerText) + 1;
+  let valor = parseInt(el.innerText) + 1;
+  el.innerText = valor;
+
+  if(idLista){
+    await api("alterarQuantidade",{
+      idLista:idLista,
+      idItem:id,
+      quantidade:valor
+    });
+  }
 }
 
-function menos(id) {
+async function menos(id){
+
   let el = document.getElementById("qtd_" + id);
-  let v = parseInt(el.innerText) - 1;
-  if (v < 0) v = 0;
-  el.innerText = v;
+  let valor = parseInt(el.innerText) - 1;
+  if(valor < 0) valor = 0;
+  el.innerText = valor;
+
+  if(idLista){
+    await api("alterarQuantidade",{
+      idLista:idLista,
+      idItem:id,
+      quantidade:valor
+    });
+  }
 }
 
 /* ALTERNAR LISTA */
