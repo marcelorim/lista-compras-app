@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <title>Montar Lista</title>
 </head>
 
@@ -12,8 +13,8 @@
 <div class="page">
 
 <div class="topo">
-<button class="voltar" onclick="location.href='index.html'">⬅</button>
-<h2>📝 Montar Lista</h2>
+<button class="voltar"><i class="fa-solid fa-arrow-left"></i></button>
+<h2><i class="fa-solid fa-pen-to-square"></i> Montar Lista</h2>
 </div>
 
 <div class="card">
@@ -21,7 +22,7 @@
 <div id="menuInicial">
 
 <button class="acao" onclick="modoNovaLista()">
-➕ Nova Lista
+<i class="fa-solid fa-plus"></i> Nova Lista
 </button>
 
 <select id="comboListas" class="campo" onchange="selecionarLista()">
@@ -52,7 +53,7 @@ Cancelar
 <div id="itens"></div>
 
 <button class="danger" onclick="limparLista()">
-🧹 Limpar Lista
+<i class="fa-solid fa-broom"></i> Limpar Lista
 </button>
 </div>
 
