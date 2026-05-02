@@ -119,41 +119,28 @@ function finalizarLista(nome) {
   document.getElementById("areaItens").style.display = "block";
 }
 
-/* RENDER */
-function renderItens(listaAtual) {
+/* RENDERIZAR LISTA */
+function renderItens(listaAtual){
 
   const div = document.getElementById("itens");
-
   div.innerHTML = "";
 
   itensBase.forEach(item => {
-
-    const atual =
-      listaAtual.find(x => x.idItem == item.id);
-
+    const atual = listaAtual.find(x => x.idItem == item.id);
     const qtd = atual ? atual.quantidade : 0;
-
     const ativo = !!atual;
 
     div.innerHTML += `
-      <div class="linha-item">
-
-        <span>${item.nome}</span>
-
+      <div class="linha-item ${ativo ? 'ativo' : ''}">
+        <span class="nome-item">${item.nome}</span>
         <div class="acoes-item">
-
-          <button onclick="menos(${item.id})">-</button>
-
-          <span id="qtd_${item.id}">${qtd}</span>
-
-          <button onclick="mais(${item.id})">+</button>
-
-          <button onclick="toggle(${item.id})">
-            ${ativo ? '🗑️' : '➕'}
+          <i class="fa-solid fa-minus icone-qtd" onclick="menos(${item.id})"></i>
+          <span class="badge-qtd" id="qtd_${item.id}"> ${qtd}</span>
+          <i class="fa-solid fa-plus icone-qtd" onclick="mais(${item.id})"></i>
+          <button class="${ativo ? 'btn-remove' : 'btn-add'}" onclick="toggle(${item.id})">
+            <i class="fa-solid ${ativo ? 'fa-trash' : 'fa-plus'}"></i>
           </button>
-
         </div>
-
       </div>
     `;
   });
@@ -170,4 +157,40 @@ function menos(id) {
   let v = parseInt(el.innerText) - 1;
   if (v < 0) v = 0;
   el.innerText = v;
+}
+
+/* ALTERNAR LISTA */
+async function toggle(id) {
+
+  if(!idLista){
+    aviso("Selecione uma lista");
+    return;
+  }
+
+  const qtd = parseInt(document.getElementById("qtd_" + id).innerText);
+  if(qtd <= 0){
+    aviso("Informe a quantidade");
+    return;
+  }
+
+  showLoading();
+
+  const btn = event.currentTarget;
+  const remover = btn.classList.contains("btn-remove");
+  if(remover){
+    await api("removerItemDaLista",{
+      idLista:idLista,
+      idItem:id
+    });
+  }else{
+    await api("incluirItemNaLista",{
+      idLista:idLista,
+      idItem:id,
+      quantidade:qtd
+    });
+  }
+
+  await selecionarLista();
+
+  hideLoading();
 }
