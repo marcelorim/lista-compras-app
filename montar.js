@@ -1,164 +1,173 @@
 let idLista = null;
 let itensBase = [];
 
-/* ===============================
-   LOAD INICIAL
-================================= */
-window.onload = async function(){
+/* LOAD INICIAL */
+window.onload = async function () {
 
-  showLoading();
+  await executarComLoading(async () => {
+    await carregarListas();
+    await carregarItensBase();
+  });
 
-  await carregarListas();
-  await carregarItensBase();
+};
 
-  hideLoading();
+/* LOADING PADRÃO */
+async function executarComLoading(fn) {
+  try {
+    showLoading();
+    await fn();
+  } catch (e) {
+    console.error(e);
+    alert("Erro ao processar.");
+  } finally {
+    hideLoading();
+  }
 }
 
-/* ===============================
-   CARREGAR LISTAS
-================================= */
-async function carregarListas(){
+/* CARREGAR LISTAS */
+async function carregarListas() {
 
   const r = await api("buscarListas");
 
   const combo = document.getElementById("comboListas");
 
   combo.innerHTML =
-  `<option value="">📂 Carregar lista existente</option>`;
+    `<option value="">📂 Carregar lista existente</option>`;
 
-  r.data.forEach(x=>{
+  r.data.forEach(x => {
     combo.innerHTML +=
-    `<option value="${x.id}">${x.nome}</option>`;
+      `<option value="${x.id}">${x.nome}</option>`;
   });
 }
 
-/* ===============================
-   ITENS BASE
-================================= */
-async function carregarItensBase(){
-
+/* ITENS BASE */
+async function carregarItensBase() {
   const r = await api("buscarItens");
   itensBase = r.data;
 }
 
-/* ===============================
-   NOVA LISTA
-================================= */
-function modoNovaLista(){
-
-  document.getElementById("menuInicial").style.display="none";
-  document.getElementById("areaNova").style.display="block";
+/* NOVA LISTA */
+function modoNovaLista() {
+  document.getElementById("menuInicial").style.display = "none";
+  document.getElementById("areaNova").style.display = "block";
 }
 
-function cancelarNovaLista(){
-
-  document.getElementById("areaNova").style.display="none";
-  document.getElementById("menuInicial").style.display="block";
+function cancelarNovaLista() {
+  document.getElementById("areaNova").style.display = "none";
+  document.getElementById("menuInicial").style.display = "block";
 }
 
-/* ===============================
-   CRIAR LISTA
-================================= */
-async function criarLista(){
+/* CRIAR LISTA */
+async function criarLista() {
 
   const nome = document.getElementById("nomeLista").value.trim();
 
-  if(!nome) return;
+  if (!nome) return;
 
-  showLoading();
+  await executarComLoading(async () => {
 
-  const r = await api("criarLista",{nomeLista:nome});
+    const r = await api("criarLista", { nomeLista: nome });
 
-  idLista = r.data.idLista;
+    idLista = r.data.idLista;
 
-  await carregarListas();
+    await carregarListas();
 
-  finalizarLista(nome);
+    finalizarLista(nome);
 
-  renderItens([]);
+    renderItens([]);
 
-  hideLoading();
+  });
 }
 
-/* ===============================
-   SELECIONAR LISTA
-================================= */
-async function selecionarLista(){
+/* SELECIONAR LISTA */
+async function selecionarLista() {
 
   idLista = document.getElementById("comboListas").value;
 
-  if(!idLista) return;
+  if (!idLista) return;
 
-  const nome = document.getElementById("comboListas")
-  .options[
-    document.getElementById("comboListas").selectedIndex
-  ].text;
+  const combo = document.getElementById("comboListas");
 
-  showLoading();
+  const nome = combo.options[combo.selectedIndex].text;
 
-  const r = await api("buscarItensDaLista", {idLista:idLista});
+  await executarComLoading(async () => {
 
-  finalizarLista(nome);
+    const r = await api("buscarItensDaLista", {
+      idLista: idLista
+    });
 
-  renderItens(r.data);
+    finalizarLista(nome);
 
-  hideLoading();
+    renderItens(r.data);
+
+  });
 }
 
-/* ===============================
-   FINALIZAR ESCOLHA
-================================= */
-function finalizarLista(nome){
+/* FINALIZAR */
+function finalizarLista(nome) {
 
-  document.getElementById("menuInicial").style.display="none";
-  document.getElementById("areaNova").style.display="none";
+  document.getElementById("menuInicial").style.display = "none";
+  document.getElementById("areaNova").style.display = "none";
 
   const div = document.getElementById("listaAtiva");
-  div.style.display="block";
+
+  div.style.display = "block";
+
   div.innerHTML =
-  `<div class="lista-box">
-     🛒 ${nome.toUpperCase()}
-   </div>`;
+    `<div class="lista-box">🛒 ${nome.toUpperCase()}</div>`;
 
-  document.getElementById("areaItens").style.display="block";
+  document.getElementById("areaItens").style.display = "block";
 }
 
-function renderItens(listaAtual){
-    const area = document.getElementById("areaItens");  
-    area.style.display = "block";  
-    const div = document.getElementById("itens");  
-    div.innerHTML = "";
-  
-    itensBase.forEach(item => {
-  
-      const atual = listaAtual.find(x => x.idItem == item.id);  
-      const qtd = atual ? atual.quantidade : 0;  
-      const ativo = atual ? true : false;
-  
-      div.innerHTML += `
-        <div class="linha-item">  
-          <span>${item.nome}</span>  
-          <div class="acoes-item">  
-            <button onclick="menos(${item.id})">-</button>  
-            <span id="qtd_${item.id}">${qtd}</span>  
-            <button onclick="mais(${item.id})">+</button>  
-            <button onclick="toggle(${item.id})">
-              ${ativo ? '🗑️' : '➕'}
-            </button>  
-          </div>  
+/* RENDER */
+function renderItens(listaAtual) {
+
+  const div = document.getElementById("itens");
+
+  div.innerHTML = "";
+
+  itensBase.forEach(item => {
+
+    const atual =
+      listaAtual.find(x => x.idItem == item.id);
+
+    const qtd = atual ? atual.quantidade : 0;
+
+    const ativo = !!atual;
+
+    div.innerHTML += `
+      <div class="linha-item">
+
+        <span>${item.nome}</span>
+
+        <div class="acoes-item">
+
+          <button onclick="menos(${item.id})">-</button>
+
+          <span id="qtd_${item.id}">${qtd}</span>
+
+          <button onclick="mais(${item.id})">+</button>
+
+          <button onclick="toggle(${item.id})">
+            ${ativo ? '🗑️' : '➕'}
+          </button>
+
         </div>
-      `;
-    });
+
+      </div>
+    `;
+  });
 }
 
-function mais(id){
-    let el = document.getElementById("qtd_" + id);
-    el.innerText = parseInt(el.innerText) + 1;
+/* QTD */
+function mais(id) {
+  let el = document.getElementById("qtd_" + id);
+  el.innerText = parseInt(el.innerText) + 1;
 }
-  
-function menos(id){
-    let el = document.getElementById("qtd_" + id);
-    let v = parseInt(el.innerText) - 1;
-    if(v < 0) v = 0;
-    el.innerText = v;
+
+function menos(id) {
+  let el = document.getElementById("qtd_" + id);
+  let v = parseInt(el.innerText) - 1;
+  if (v < 0) v = 0;
+  el.innerText = v;
 }
