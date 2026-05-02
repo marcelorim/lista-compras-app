@@ -109,8 +109,7 @@ async function limparLista(){
     return;
   }
 
-  const ok = confirm("Deseja limpar todos os itens da lista?");
-
+  const ok = await confirmar("Deseja limpar todos os itens da lista?");
   if(!ok) return;
 
   showLoading();

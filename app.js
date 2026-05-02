@@ -16,17 +16,58 @@ async function api(action, params = {}) {
 }
 
 /* ===============================
-   ALERTA GLOBAL
+   ALERTA SUCESSO
 ================================= */
-function aviso(msg){
-  alert(msg);
+function sucesso(msg){
+  return Swal.fire({
+    icon:'success',
+    title:'Sucesso',
+    text:msg,
+    confirmButtonColor:'#198754'
+  });
 }
 
 /* ===============================
-   CONFIRMAÇÃO GLOBAL
+   ALERTA ERRO
 ================================= */
-function confirmar(msg){
-  return confirm(msg);
+function erro(msg){
+  return Swal.fire({
+    icon:'error',
+    title:'Oops...',
+    text:msg,
+    confirmButtonColor:'#dc3545'
+  });
+}
+
+/* ===============================
+   ALERTA INFO
+================================= */
+function aviso(msg){
+  return Swal.fire({
+    icon:'info',
+    title:'Aviso',
+    text:msg,
+    confirmButtonColor:'#0d6efd'
+  });
+}
+
+/* ===============================
+   CONFIRMAÇÃO
+================================= */
+async function confirmar(msg){
+
+  const r = await Swal.fire({
+    icon:'question',
+    title:'Confirmação',
+    text:msg,
+    showCancelButton:true,
+    confirmButtonText:'Sim',
+    cancelButtonText:'Cancelar',
+    confirmButtonColor:'#198754',
+    cancelButtonColor:'#dc3545'
+  });
+
+  return r.isConfirmed;
 }
 
 /* ===============================
