@@ -153,13 +153,15 @@ async function mais(id){
   let valor = parseInt(el.innerText) + 1;
   el.innerText = valor;
 
-  if(idLista){
-    await api("alterarQuantidade",{
-      idLista:idLista,
-      idItem:id,
-      quantidade:valor
-    });
-  }
+  if(!idLista) return;
+
+  const r = await api("alterarQuantidade",{
+    idLista:idLista,
+    idItem:id,
+    quantidade:valor
+  });
+
+  console.log("mais:", r);
 }
 
 async function menos(id){
@@ -169,13 +171,15 @@ async function menos(id){
   if(valor < 0) valor = 0;
   el.innerText = valor;
 
-  if(idLista){
-    await api("alterarQuantidade",{
-      idLista:idLista,
-      idItem:id,
-      quantidade:valor
-    });
-  }
+  if(!idLista) return;
+
+  const r = await api("alterarQuantidade",{
+    idLista:idLista,
+    idItem:id,
+    quantidade:valor
+  });
+
+  console.log("menos:", r);
 }
 
 /* ALTERNAR LISTA */
