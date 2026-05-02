@@ -140,7 +140,7 @@ function finalizarLista(nome) {
 }
 
 /* RENDERIZAR LISTA */
-function renderItens(listaAtual){
+function renderItens(listaAtual) {
 
   const div = document.getElementById("itens");
   div.innerHTML = "";
@@ -152,15 +152,21 @@ function renderItens(listaAtual){
 
     div.innerHTML += `
       <div class="linha-item ${ativo ? 'ativo' : ''}">
-        <span class="nome-item">${item.nome}</span>
-        <div class="acoes-item">
-          <i class="fa-solid fa-minus icone-qtd" onclick="menos(${item.id})"></i>
-          <span class="badge-qtd" id="qtd_${item.id}"> ${qtd}</span>
-          <i class="fa-solid fa-plus icone-qtd" onclick="mais(${item.id})"></i>
-          <button class="${ativo ? 'btn-remove' : 'btn-add'}" onclick="toggle(${item.id})">
-            <i class="fa-solid ${ativo ? 'fa-trash' : 'fa-plus'}"></i>
-          </button>
-        </div>
+          <span class="nome-item">${item.nome}</span>
+          <div class="acoes-item">
+              <button class="btn-qtd" onclick="menos(${item.id})">
+                  <i class="fa-solid fa-minus"></i>
+              </button>
+              <span class="badge-qtd" id="qtd_${item.id}">
+                ${qtd}
+              </span>
+              <button class="btn-qtd" onclick="mais(${item.id})">
+                <i class="fa-solid fa-plus"></i>
+              </button>
+              <button class="${ativo ? 'btn-remove' : 'btn-add'}" onclick="toggle(${item.id})">
+                <i class="fa-solid ${ativo ? 'fa-trash' : 'fa-plus'}"></i>
+              </button>
+          </div>
       </div>
     `;
   });
