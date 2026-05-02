@@ -1,4 +1,4 @@
-const API = "https://script.google.com/macros/s/AKfycbzH0ay9LafVDoF4CFC2b7GCOZbBtjv3JnDI8WV8d2LI5ElbjVD6OmW_B8IZ1Z-NB1zt/exec";
+const API = "https://script.google.com/macros/s/AKfycbxX61m0qfD1jPO-eYhP3DO5SmJc7W5ySh5A42u9hQ6Zaqa2cfbGLurYqw1bPnm66Dpa/exec";
 
 /* ===============================
    CHAMADA API GLOBAL
