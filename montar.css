@@ -180,8 +180,16 @@ button.danger:active{
    MENOS / MAIS
 ======================================== */
 
-.btn-qtd{
-    background:#012b20;
+.icone-qtd{
+    font-size:18px;
+    color:#012b20;
+    cursor:pointer;
+    padding:8px;
+    transition:.15s;
+}
+
+.icone-qtd:active{
+    transform:scale(.85);
 }
 
 /* ========================================
