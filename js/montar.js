@@ -37,7 +37,7 @@ async function carregarListas() {
   const combo = document.getElementById("comboListas");
 
   combo.innerHTML =
-    `<option value="">📂 Carregar lista existente</option>`;
+    `<option value="">📂 Selecione a Lista </option>`;
 
   r.data.forEach(x => {
     combo.innerHTML +=
