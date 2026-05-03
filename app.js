@@ -5,13 +5,18 @@ const API = "https://script.google.com/macros/s/AKfycbzH0ay9LafVDoF4CFC2b7GCOZbB
 ================================= */
 async function api(action, params = {}) {
 
-  let url = API + "?action=" + action;
+  const formData = new URLSearchParams();
+  formData.append("action", action);
 
   Object.keys(params).forEach(k => {
-    url += "&" + k + "=" + encodeURIComponent(params[k]);
+    formData.append(k, params[k]);
   });
 
-  const resposta = await fetch(url);
+  const resposta = await fetch(API, {
+    method: "POST",
+    body: formData
+  });
+
   return await resposta.json();
 }
 
