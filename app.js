@@ -4,20 +4,25 @@ const API = "https://script.google.com/macros/s/AKfycbzH0ay9LafVDoF4CFC2b7GCOZbB
    CHAMADA API GLOBAL
 ================================= */
 async function api(action, params = {}) {
+  try {
+    const formData = new URLSearchParams();
+    formData.append("action", action);
 
-  const formData = new URLSearchParams();
-  formData.append("action", action);
+    Object.keys(params).forEach(k => {
+      formData.append(k, params[k]);
+    });
 
-  Object.keys(params).forEach(k => {
-    formData.append(k, params[k]);
-  });
+    const resposta = await fetch(API, {
+      method: "POST",
+      body: formData
+    });
 
-  const resposta = await fetch(API, {
-    method: "POST",
-    body: formData
-  });
+    return await resposta.json();
 
-  return await resposta.json();
+  } catch (err) {
+    console.error(err);
+    throw new Error("Erro de comunicação com API");
+  }
 }
 
 /* ===============================

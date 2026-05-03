@@ -18,7 +18,7 @@ async function executarComLoading(fn) {
     await fn();
   } catch (e) {
     console.error(e);
-    alert("Erro ao processar.");
+    erro("Erro ao processar.");
   } finally {
     hideLoading();
   }
@@ -28,6 +28,11 @@ async function executarComLoading(fn) {
 async function carregarListas() {
 
   const r = await api("buscarListas");
+
+  if(!r.success){
+    erro(r.message);
+    return;
+  }
 
   const combo = document.getElementById("comboListas");
 
@@ -43,6 +48,12 @@ async function carregarListas() {
 /* ITENS BASE */
 async function carregarItensBase() {
   const r = await api("buscarItens");
+
+  if(!r.success){
+    erro(r.message);
+    return;
+  }
+
   itensBase = r.data;
 }
 
@@ -62,11 +73,19 @@ async function criarLista() {
 
   const nome = document.getElementById("nomeLista").value.trim();
 
-  if (!nome) return;
+  if (!nome) {
+    aviso("Digite o nome da lista");
+    return;
+  }
 
   await executarComLoading(async () => {
 
     const r = await api("criarLista", { nomeLista: nome });
+
+    if(!r.success){
+      erro(r.message);
+      return;
+    }
 
     idLista = r.data.idLista;
 
@@ -75,6 +94,8 @@ async function criarLista() {
     finalizarLista(nome);
 
     renderItens([]);
+
+    sucesso("Lista criada com sucesso!");
 
   });
 }
@@ -87,7 +108,6 @@ async function selecionarLista() {
   if (!idLista) return;
 
   const combo = document.getElementById("comboListas");
-
   const nome = combo.options[combo.selectedIndex].text;
 
   await executarComLoading(async () => {
@@ -95,6 +115,11 @@ async function selecionarLista() {
     const r = await api("buscarItensDaLista", {
       idLista: idLista
     });
+
+    if(!r.success){
+      erro(r.message);
+      return;
+    }
 
     finalizarLista(nome);
     renderItens(r.data);
@@ -112,14 +137,22 @@ async function limparLista(){
   const ok = await confirmar("Deseja limpar todos os itens da lista?");
   if(!ok) return;
 
-  showLoading();
+  await executarComLoading(async () => {
 
-  await api("limparLista", {
-    idLista:idLista
+    const r = await api("limparLista", {
+      idLista:idLista
+    });
+
+    if(!r.success){
+      erro(r.message);
+      return;
+    }
+
+    await selecionarLista(); // 🔥 RECARREGA DO BACKEND
+
+    sucesso("Lista limpa!");
+
   });
-
-  renderItens([]);
-  hideLoading();
 }
 
 /* FINALIZAR */
@@ -155,12 +188,12 @@ function renderItens(listaAtual) {
               ${item.nome}
           </span>
           <div class="acoes-item">
-              <i class="fa-solid fa-minus icone-qtd"onclick="menos(${item.id})"></i>
+              <i class="fa-solid fa-minus icone-qtd" onclick="menos(${item.id})"></i>
               <span class="badge-qtd" id="qtd_${item.id}">
                 ${qtd}
               </span>
               <i class="fa-solid fa-plus icone-qtd" onclick="mais(${item.id})"></i>
-              <button class="${ativo ? 'btn-remove' : 'btn-add'}" onclick="toggle(${item.id})">
+              <button class="${ativo ? 'btn-remove' : 'btn-add'}" onclick="toggle(${item.id}, this)">
                 <i class="fa-solid ${ativo ? 'fa-trash' : 'fa-plus'}"></i>
               </button>
           </div>
@@ -178,7 +211,7 @@ async function mais(id){
 
   if(!idLista) return;
 
-  const r = await api("alterarQuantidade",{
+  await api("alterarQuantidade",{
     idLista:idLista,
     idItem:id,
     quantidade:valor
@@ -196,7 +229,7 @@ async function menos(id){
 
   if(!idLista) return;
 
-  const r = await api("alterarQuantidade",{
+  await api("alterarQuantidade",{
     idLista:idLista,
     idItem:id,
     quantidade:valor
@@ -206,7 +239,7 @@ async function menos(id){
 }
 
 /* ALTERNAR LISTA */
-async function toggle(id) {
+async function toggle(id, btn) {
 
   if(!idLista){
     aviso("Selecione uma lista");
@@ -219,24 +252,31 @@ async function toggle(id) {
     return;
   }
 
-  showLoading();
+  await executarComLoading(async () => {
 
-  const btn = event.currentTarget;
-  const remover = btn.classList.contains("btn-remove");
-  if(remover){
-    await api("removerItemDaLista",{
-      idLista:idLista,
-      idItem:id
-    });
-  }else{
-    await api("incluirItemNaLista",{
-      idLista:idLista,
-      idItem:id,
-      quantidade:qtd
-    });
-  }
+    const remover = btn.classList.contains("btn-remove");
 
-  await selecionarLista();
+    let r;
 
-  hideLoading();
+    if(remover){
+      r = await api("removerItemDaLista",{
+        idLista:idLista,
+        idItem:id
+      });
+    }else{
+      r = await api("incluirItemNaLista",{
+        idLista:idLista,
+        idItem:id,
+        quantidade:qtd
+      });
+    }
+
+    if(!r.success){
+      erro(r.message);
+      return;
+    }
+
+    await selecionarLista();
+
+  });
 }
