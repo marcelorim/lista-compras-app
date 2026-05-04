@@ -107,28 +107,21 @@ button.danger:active{
 /* ========================================
    LINHAS DE ITENS
 ======================================== */
-
-.linha-item{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:12px;
-    padding:16px 0;
-    border-bottom:1px solid #f0f0f0;
-    font-size:18px;
-    transition:.2s;
+.linha-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 10px; /* 🔥 padroniza */
+    border-bottom: 1px solid #eee;
+    font-size: 18px;
+    transition: .2s;
 }
 
-.linha-item:last-child{
-    border-bottom:none;
-}
-
-.linha-item.ativo{
-    background:#d4edda;
-    padding:14px 10px;
-    border-radius:14px;
-    margin-bottom:8px;
-    border:none;
+.linha-item.ativo {
+    background: #d4edda;
+    border-radius: 14px;
+    margin-bottom: 8px;
+    border: none;
 }
 
 /* ========================================
