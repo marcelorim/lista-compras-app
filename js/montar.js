@@ -72,7 +72,6 @@ function cancelarNovaLista() {
 async function criarLista() {
 
   const nome = document.getElementById("nomeLista").value.trim();
-
   if (!nome) {
     aviso("Digite o nome da lista");
     return;
@@ -81,20 +80,20 @@ async function criarLista() {
   await executarComLoading(async () => {
 
     const r = await api("criarLista", { nomeLista: nome });
-
     if(!r.success){
       erro(r.message);
       return;
     }
 
     idLista = r.data.idLista;
-
     await carregarListas();
 
+    document.getElementById("comboListas").value = idLista;
+
     finalizarLista(nome);
-
+    
     renderItens([]);
-
+    
     sucesso("Lista criada com sucesso!");
 
   });
@@ -150,7 +149,7 @@ async function limparLista(){
 
     await selecionarLista(); // 🔥 RECARREGA DO BACKEND
 
-    sucesso("Lista limpa!");
+    sucesso("Lista limpa com sucesso!");
 
   });
 }
@@ -241,33 +240,32 @@ async function menos(id){
 /* ALTERNAR LISTA */
 async function toggle(id, btn) {
 
-  if(!idLista){
-    aviso("Selecione uma lista");
+  const listaAtual = idLista || document.getElementById("comboListas").value;
+  if(!listaAtual){
+    aviso("Selecione uma lista.");
     return;
   }
 
   const qtd = parseInt(document.getElementById("qtd_" + id).innerText);
   if(qtd <= 0){
-    aviso("Informe a quantidade");
+    aviso("Informe a quantidade do item.");
     return;
   }
 
   await executarComLoading(async () => {
 
-    const remover = btn.classList.contains("btn-remove");
-
     let r;
-
+    const remover = btn.classList.contains("btn-remove");
     if(remover){
       r = await api("removerItemDaLista",{
-        idLista:idLista,
-        idItem:id
+        idLista: listaAtual,
+        idItem: id
       });
     }else{
       r = await api("incluirItemNaLista",{
-        idLista:idLista,
-        idItem:id,
-        quantidade:qtd
+        idLista: listaAtual,
+        idItem: id,
+        quantidade: qtd
       });
     }
 
@@ -275,6 +273,9 @@ async function toggle(id, btn) {
       erro(r.message);
       return;
     }
+
+    // 🔥 mantém o estado sincronizado
+    idLista = listaAtual;
 
     await selecionarLista();
 
