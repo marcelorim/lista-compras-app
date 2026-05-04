@@ -99,3 +99,18 @@ function hideLoading(){
 function voltarHome(){
   window.location.href = "index.html";
 }
+
+/* ===============================
+   LOADING PADRÃO
+================================= */
+async function executarComLoading(fn) {
+  try {
+    showLoading();
+    await fn();
+  } catch (e) {
+    console.error(e);
+    erro("Erro ao processar.");
+  } finally {
+    hideLoading();
+  }
+}

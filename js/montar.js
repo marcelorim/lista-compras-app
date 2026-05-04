@@ -11,19 +11,6 @@ window.onload = async function () {
 
 };
 
-/* LOADING PADRÃO */
-async function executarComLoading(fn) {
-  try {
-    showLoading();
-    await fn();
-  } catch (e) {
-    console.error(e);
-    erro("Erro ao processar.");
-  } finally {
-    hideLoading();
-  }
-}
-
 /* CARREGAR LISTAS */
 async function carregarListas() {
 

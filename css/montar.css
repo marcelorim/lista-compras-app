@@ -1,64 +1,10 @@
-.page{
-    padding:18px;
-    min-height:100vh;
-}
-
-/* ========================================
-   TOPO
-======================================== */
-
-.topo{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    margin-bottom:20px;
-    color:#fff;
-}
-
-.topo h2{
-    font-size:28px;
-    font-weight:700;
-}
-
-.voltar{
-    width:50px;
-    height:50px;
-    border:none;
-    border-radius:16px;
-    background:#fff;
-    color:#012b20;
-    font-size:22px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    box-shadow:0 6px 16px rgba(0,0,0,.18);
-    transition:.2s;
-}
-
-.voltar:active{
-    transform:scale(.95);
-}
-
-/* ========================================
-   BOTÕES PRINCIPAIS
-======================================== */
-
+/* BOTÕES */
 .acao{
     width:100%;
     background:#198754;
     color:#fff;
     margin-bottom:12px;
-    border:none;
-    border-radius:16px;
-    padding:16px;
-    font-size:20px;
-    font-weight:700;
     box-shadow:0 8px 18px rgba(13,110,253,.22);
-    transition:.2s;
-}
-
-.acao:active{
-    transform:scale(.97);
 }
 
 .outline{
@@ -67,32 +13,16 @@
     box-shadow:none;
 }
 
-/* ========================================
-   BOTÃO LIMPAR
-======================================== */
-
+/* BOTÃO LIMPAR */
 button.danger{
     width:100%;
     margin-top:18px;
     background:#dc3545;
     color:#fff;
-    border:none;
-    border-radius:16px;
-    padding:18px;
-    font-size:20px;
-    font-weight:700;
     box-shadow:0 8px 20px rgba(220,53,69,.28);
-    transition:.2s;
 }
 
-button.danger:active{
-    transform:scale(.97);
-}
-
-/* ========================================
-   LISTA ATIVA
-======================================== */
-
+/* LISTA ATIVA */
 .lista-box{
     background:#d1ecf1;
     color:#0c5460;
@@ -104,19 +34,7 @@ button.danger:active{
     box-shadow:0 6px 16px rgba(0,0,0,.08);
 }
 
-/* ========================================
-   LINHAS DE ITENS
-======================================== */
-.linha-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 14px 10px; /* 🔥 padroniza */
-    border-bottom: 1px solid #eee;
-    font-size: 18px;
-    transition: .2s;
-}
-
+/* ESTADO ATIVO */
 .linha-item.ativo {
     background: #d4edda;
     border-radius: 14px;
@@ -124,35 +42,10 @@ button.danger:active{
     border: none;
 }
 
-/* ========================================
-   NOME ITEM
-======================================== */
-
-.nome-item{
-    font-weight:600;
-    max-width:45%;
-    line-height:1.2;
-}
-
-/* ========================================
-   ÁREA BOTÕES DIREITA
-======================================== */
-
-.acoes-item{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    flex-shrink:0;
-}
-
-/* ========================================
-   BOTÕES PADRÃO DOS ITENS
-======================================== */
-
+/* BOTÕES DOS ITENS */
 .acoes-item button{
     width:42px;
     height:42px;
-    border:none;
     border-radius:12px;
     padding:0;
     display:flex;
@@ -160,47 +53,18 @@ button.danger:active{
     justify-content:center;
     color:#fff;
     font-size:18px;
-    cursor:pointer;
-    transition:.18s;
     box-shadow:0 4px 10px rgba(0,0,0,.12);
 }
 
-.acoes-item button:active{
-    transform:scale(.94);
-}
-
-/* ========================================
-   MENOS / MAIS
-======================================== */
-
+/* MAIS/MENOS */
 .icone-qtd{
     font-size:18px;
     color:#012b20;
     cursor:pointer;
     padding:8px;
-    transition:.15s;
 }
 
-.icone-qtd:active{
-    transform:scale(.85);
-}
-
-/* ========================================
-   QUANTIDADE
-======================================== */
-
-.badge-qtd{
-    min-width:28px;
-    text-align:center;
-    font-size:18px;
-    font-weight:700;
-    color:#111;
-}
-
-/* ========================================
-   ADICIONAR / REMOVER
-======================================== */
-
+/* BOTÕES */
 .btn-add{
     background:#198754;
 }

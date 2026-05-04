@@ -3,8 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="comprar.css">
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/comprar.css">
+
 <title>Comprar</title>
 </head>
 
@@ -12,35 +14,41 @@
 
 <div class="page">
 
-<div class="topo">
-<button class="voltar" onclick="location.href='index.html'">⬅</button>
-<h2>🛒 Fazer Compras</h2>
-</div>
+  <!-- TOPO -->
+  <div class="topo">
+    <button class="voltar" onclick="voltarHome()">
+      <i class="fa-solid fa-arrow-left"></i>
+    </button>
+    <h2>🛒 Comprar Itens da Lista</h2>
+  </div>
 
-<div class="card">
+  <!-- CARD PRINCIPAL -->
+  <div class="card">
 
-<label class="check">
-<input type="checkbox">
-<span>Arroz - 2 un</span>
-</label>
+    <!-- FILTRO -->
+    <div class="filtro-box">
+      <label class="switch">
+        <input type="checkbox" id="toggleComprados" checked onchange="filtrarComprados()">
+        <span class="slider"></span>
+      </label>
+      <span id="labelFiltro">Mostrar comprados</span>
+    </div>
 
-<label class="check">
-<input type="checkbox">
-<span>Feijão - 1 un</span>
-</label>
+    <!-- LISTA -->
+    <div id="listaCompra"></div>
 
-<label class="check">
-<input type="checkbox">
-<span>Macarrão - 3 un</span>
-</label>
-
-</div>
-
-<button class="acao danger">
-🧹 Limpar Comprados
-</button>
+  </div>
 
 </div>
+
+<!-- LOADING GLOBAL -->
+<div id="loading" class="loading">
+  <div class="spinner"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="js/app.js"></script>
+<script src="js/comprar.js"></script>
 
 </body>
 </html>
