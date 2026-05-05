@@ -24,14 +24,31 @@
 
   <!-- CARD PRINCIPAL -->
   <div class="card">
-
-    <!-- FILTRO -->
+    
+    <!-- OCULTAR/ATIVAR ITENS -->
     <div class="filtro-box">
       <label class="switch">
         <input type="checkbox" id="toggleComprados" checked onchange="filtrarComprados()">
         <span class="slider"></span>
       </label>
       <span id="labelFiltro">Mostrar comprados</span>
+    </div>
+
+    <!-- FILTRO -->
+    <div class="busca-box">
+
+      <input type="text" id="buscaItem" placeholder="🔍 Buscar item..." oninput="filtrarLista()" />
+      
+      <button class="btn-filtro" onclick="toggleFiltro()">
+        <i class="fa-solid fa-sliders"></i>
+      </button>
+      <div id="menuFiltro" class="menu-filtro hidden">
+        <div onclick="setOrdenacao('nome_asc')">Nome (A → Z)</div>
+        <div onclick="setOrdenacao('nome_desc')">Nome (Z → A)</div>
+        <div onclick="setOrdenacao('qtd_asc')">Qtd (menor → maior)</div>
+        <div onclick="setOrdenacao('qtd_desc')">Qtd (maior → menor)</div>
+      </div>
+    
     </div>
 
     <!-- LISTA -->
