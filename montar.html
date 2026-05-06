@@ -1,73 +1,71 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/montar.css">
-<title>Montar Lista</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/montar.css">
+    <title>Montar Lista</title>
 </head>
 
 <body>
+    <div class="page">
 
-<div class="page">
+        <div class="topo">
+        <button class="voltar" onclick="voltarHome()">
+            <i class="fa-solid fa-arrow-left"></i>
+        </button>
+        <h2>📝 Montar Lista</h2>
+        </div>
 
-<div class="topo">
-<button class="voltar" onclick="voltarHome()">
-    <i class="fa-solid fa-arrow-left"></i>
-</button>
-<h2>📝 Montar Lista</h2>
-</div>
+        <div class="card">
 
-<div class="card">
+        <div id="menuInicial">
 
-<div id="menuInicial">
+        <button class="acao" onclick="modoNovaLista()">
+        <i class="fa-solid fa-plus"></i> Nova Lista
+        </button>
 
-<button class="acao" onclick="modoNovaLista()">
-<i class="fa-solid fa-plus"></i> Nova Lista
-</button>
+        <select id="comboListas" class="campo" onchange="selecionarLista()">
+        <option value="">📂 Selecione a Lista</option>
+        </select>
 
-<select id="comboListas" class="campo" onchange="selecionarLista()">
-<option value="">📂 Selecione a Lista</option>
-</select>
+        </div>
 
-</div>
+        <div id="areaNova" style="display:none">
 
-<div id="areaNova" style="display:none">
+        <input id="nomeLista" class="campo" placeholder="Nome da nova lista">
 
-<input id="nomeLista" class="campo" placeholder="Nome da nova lista">
+        <button class="acao" onclick="criarLista()">
+        Criar Lista
+        </button>
 
-<button class="acao" onclick="criarLista()">
-Criar Lista
-</button>
+        <button class="outline acao" onclick="cancelarNovaLista()">
+        Cancelar
+        </button>
 
-<button class="outline acao" onclick="cancelarNovaLista()">
-Cancelar
-</button>
+        </div>
 
-</div>
+        <div id="listaAtiva" style="display:none"></div>
 
-<div id="listaAtiva" style="display:none"></div>
+        </div>
 
-</div>
+        <div class="card" id="areaItens" style="display:none">
+        <div id="itens"></div>
 
-<div class="card" id="areaItens" style="display:none">
-<div id="itens"></div>
+        <button class="danger" onclick="limparLista()">
+            <i class="fa-solid fa-trash-can"></i> Limpar Lista
+        </button>
+        </div>
 
-<button class="danger" onclick="limparLista()">
-    <i class="fa-solid fa-trash-can"></i> Limpar Lista
-</button>
-</div>
+    </div>
 
-</div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/app.js"></script>
+    <script src="js/montar.js"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="js/app.js"></script>
-<script src="js/montar.js"></script>
-
-<div id="loading" class="loading">
-    <div class="spinner"></div>
-</div>
-
+    <div id="loading" class="loading">
+        <div class="spinner"></div>
+    </div>
 </body>
 </html>
