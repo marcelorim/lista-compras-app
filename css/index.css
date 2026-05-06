@@ -1,12 +1,16 @@
-/* REMOVE SCROLL ELÁSTICO (APP FEEL) */
-body {
-   overscroll-behavior: none;
-}
-
-/* FUNDO COM LEVE GRADIENTE */
-body {
-   background: linear-gradient(180deg, #006940 0%, #004d2e 100%);
-}
+html, body {
+    height: 100%;
+    overflow: hidden; /* trava o scroll */
+ }
+ 
+ /* evita zoom/scroll mobile */
+ body {
+    overscroll-behavior: none;
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    user-select: none;
+    background: linear-gradient(180deg, #006940 0%, #004d2e 100%);
+ }
 
 /* CONTAINER PRINCIPAL */
 .home {
@@ -18,6 +22,7 @@ body {
     padding: 25px;
     gap: 20px;
     animation: fadeUp .6s ease;
+    height: 100vh;
 }
 
 /* ÍCONE */
